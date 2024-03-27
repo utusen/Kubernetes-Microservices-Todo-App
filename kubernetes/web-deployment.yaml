@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    name: todoapp
+spec:
+  selector:
+    matchLabels:
+      name: web-pod
+  template:
+    metadata:
+      labels:
+        name: web-pod
+        app: todoapp
+    spec:
+      containers:
+      - name: web-container
+        image: utusen/todoapp:v1 # this pulls the image from docker hub
+        ports:
+        - containerPort: 3000
+        env: # to let web app to know DBHOST, env must be defined and call db-service
+          - name: DBHOST
+            value: db-service 
+        resources:
+          limits: 
+            memory: 500Mi
+            cpu: 100m
+          requests:
+            memory: 250Mi
+            cpu: 80m
+

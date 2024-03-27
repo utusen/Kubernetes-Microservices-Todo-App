@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+spec:
+  selector:
+    app: todoapp # this is the label defined in the deployment for the pod template
+  type: ClusterIP 
+  ports:
+  - port: 27017 # this is the port of service that will be created
+    targetPort: 27017 #this is the port of pods - this must match with the port defined in the deployment
